@@ -1,0 +1,3 @@
+rootProject.name = 'sidekick_mobile'
+
+include ':app'
