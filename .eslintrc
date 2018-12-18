@@ -1,0 +1,15 @@
+{
+    "extends": "rallycoding",
+    "rules": {
+        "fat-body-style": 0,
+        "ecmaFeatures":0,
+        "react/require-extension": "off"
+    }, 
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true,
+        "jest": true
+      },
+      "plugins": ["react", "jsx-a11y", "import", "prettier"]
+}

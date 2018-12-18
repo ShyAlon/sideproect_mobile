@@ -1,14 +1,19 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { Component } from 'react';
-import LoginForm from './components/LoginForm';
-
 import firebase from '@firebase/app';
+import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+import LoginForm from './components/LoginForm';
+import reducers from './reducers';
 
+const env = require('../env.json');
 
 class App extends Component {
-
     componentWillMount() {
-        firebase.initializeApp( {
-            apiKey: 'AIzaSyA_0OOJUwc47UrGamDkhzdYKNemL5j0WQ8',
+        console.log('env', env);
+        firebase.initializeApp({
+            apiKey: env.REACT_APP_GOOGLE_API_KEY,
             authDomain: 'sideproject-client.firebaseapp.com',
             databaseURL: 'https://sideproject-client.firebaseio.com',
             projectId: 'sideproject-client',
@@ -18,9 +23,13 @@ class App extends Component {
     }
 
     render() {
+        const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+
         return (
-            <LoginForm></LoginForm>
-        )
+            <Provider store={store}>
+                <LoginForm />
+            </Provider>
+        );
     }
 }
 export default App;
