@@ -4,7 +4,7 @@ import firebase from '@firebase/app';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import LoginForm from './components/LoginForm';
+import Router from './Router';
 import reducers from './reducers';
 
 const env = require('../env.json');
@@ -27,7 +27,7 @@ class App extends Component {
 
         return (
             <Provider store={store}>
-                <LoginForm />
+                <Router />
             </Provider>
         );
     }

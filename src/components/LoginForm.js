@@ -1,8 +1,8 @@
 /* eslint-disable react/require-extension */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import { Card, CardSection, Input, Button } from './common';
+import { View, Text } from 'react-native';
+import { Card, CardSection, Input, Button, Spinner } from './common';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 
 class LoginForm extends Component {
@@ -12,6 +12,30 @@ class LoginForm extends Component {
 
     onPasswordChanged(text) {
         this.props.passwordChanged(text);
+    }
+
+    onButtonPressed() {
+        this.props.loginUser(this.props);
+    }
+
+    renderError() {
+        return this.props.error ? (
+            <View style={{ backgroundColor: 'white' }}>
+                <Text>
+                    {this.props.error}
+                </Text>
+            </View>
+        ) : <View />;
+    }
+
+    renderButton() {
+        return this.props.loading ? (
+            <Spinner />
+        ) : (
+                <Button onPress={this.onButtonPressed.bind(this)}>
+                    Login
+                    </Button>
+            );
     }
 
     render() {
@@ -35,9 +59,7 @@ class LoginForm extends Component {
                     />
                 </CardSection>
                 <CardSection>
-                    <Button onPress={() => this.props.loginUser(this.props)}>
-                        Login
-                    </Button>
+                    {this.renderButton()}
                 </CardSection>
             </Card>
         );
@@ -46,7 +68,9 @@ class LoginForm extends Component {
 
 const mapStateToProps = state => ({
     email: state.auth.email,
-    password: state.auth.password
+    password: state.auth.password,
+    error: state.auth.error,
+    loading: state.auth.loading
 });
 
 export default connect(mapStateToProps, {
