@@ -7,15 +7,15 @@ const RouterComponenet = () => (
 
     <Router>
         <Scene key="root" hideNavBar>
-            <Scene key="auth" initial>
+            <Scene key="auth">
                 <Scene key="login" component={LoginForm} title="Please Login" initial />
             </Scene>
             <Scene key="main">
                 <Scene
                     key="tickets" component={TicketList}
-                    title="What's up?" initial
+                    title="What's up?"
                     rightTitle="🚶"
-                    onRight={() => console.log("batata")}
+                    onRight={() => console.log('batata')}
                 />
             </Scene>
         </Scene>
